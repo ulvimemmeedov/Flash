@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+'use strict'
+const Kernel = require('./start/kernel');
+const commandList = require("./start/core/commandList.js");
+const paramsArr = process.argv.slice(2);
+const command = paramsArr[0];
+const name = paramsArr[1];
+
+switch (commandList[command]) {
+    case 1:
+        Kernel.makeEntity(name);
+        break;
+    case 2:
+        Kernel.makeService(name);
+        break;
+    case 3:
+        Kernel.makeRouter(name);
+        break;
+    case 4:
+        Kernel.makeController(name);
+        break;
+    default:
+        break;
+}

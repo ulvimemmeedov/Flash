@@ -1,0 +1,35 @@
+{
+    "name": "nodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node build/app.js",
+        "dev": "nodemon --exec ts-node src/app.ts",
+        "setup": "ts-node src/setup.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/cors": "^2.8.12",
+        "@types/express": "^4.17.14",
+        "@types/node": "^18.7.23",
+        "typescript": "^3.8.4"
+    },
+    "dependencies": {
+        "@types/morgan": "^1.9.3",
+        "@ulvimemmeedov/expressjsplus": "^1.1.5",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.2",
+        "express": "^4.18.1",
+        "express-list-endpoints": "^6.0.0",
+        "helmet": "^6.0.0",
+        "js-logger": "^1.6.1",
+        "mysql": "^2.18.1",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "^0.3.10"
+    }
+}
