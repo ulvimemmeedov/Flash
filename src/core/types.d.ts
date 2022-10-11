@@ -1,19 +1,12 @@
 import Auth from "./Auth"
+import { DataSourceOptions } from "typeorm";
 
 export type configType = {
     appConfig: {
         cors: {
             origin: string[]
         },
-        database: {
-            port: number,
-            host: string,
-            username: string,
-            password: string,
-            databaseName: string,
-            logging: boolean,
-            synchronize: boolean
-        },
+        database: DataSourceOptions,
         hash: {
             salt: number,
         }

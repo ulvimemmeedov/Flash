@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import path from 'path';
 import { configType } from './core/types';
+
 dotenv.config({ path: path.join(__dirname, "/.env") });
 
 export const ENV = {
@@ -21,11 +22,12 @@ export const config: configType = {
             ]
         },
         database: {
+            type: "mysql",
             port: 3306,
             host: "192.168.1.138",
             username: "root",
             password: "",
-            databaseName: "expressddd",
+            database: "expressddd",
             logging: false,
             synchronize: true
         },

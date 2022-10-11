@@ -23,8 +23,10 @@ module.exports = class Kernel {
     }
 
     static makeRouter(routeName) {
+        routeName = routeName.toLowerCase();
         let routesPath = path.join(__dirname, `${srcPath}/routers`);
         const routerGenerator = require('./templetes/router');
+
         const routerTemplete = routerGenerator("/" + routeName)
 
         try {

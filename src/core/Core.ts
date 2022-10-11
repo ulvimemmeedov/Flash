@@ -17,33 +17,11 @@ import errorHandler from './errorHandler';
 import notFound from './notFound';
 import AppLog from './AppLog';
 import path from 'path';
-// PlusOrm,
-// io,
-// MysqlController,
-// ,
-// Guard,
-// dotenv,
-// ,
-// Service,
-// Router,
-// ,
-// ,
-// Handler,
-// ,
-// Helmet,
-// Cors,
-// Validation,
-// AsyncHandler,
-// ,
-// SwaggerUi,
-// Mysql,
-// Mongoose,
-// Global,
-// SetGlobal,
-// ,
-// Multer,
-// MongoController
-import { Service, csurf, CookieParser, UrlEncoded, JsonParser, ExpressPlusDebug, Helmet, Cors, Guard, Static, Logger } from '@ulvimemmeedov/expressjsplus';
+import cors from 'cors';
+import helmet from 'helmet';
+import cokieParser from 'cookie-parser';
+import csrf from 'csurf';
+import Guard from './Guard';
 /**
  * Main App Class.
  */
@@ -54,7 +32,11 @@ class FlashApp {
      */
     public Flash = express();
 
-    private port = config.appConfig.port;
+    private port: string | number
+
+    constructor(port?: string | number) {
+        this.port = port || config.appConfig.port;
+    }
 
     private listen() {
         return this.Flash.listen(this.port, () => {
@@ -79,13 +61,7 @@ class FlashApp {
         // instant log
         if (ENV.get("EXPRESSPLUS") == "true") {
             this.Flash.use(AppLog.routeLog);
-            this.Flash.use(Logger("dev"))
         }
-        /**
-         * Debug Panel
-         */
-        ExpressPlusDebug.default.Start(this.Flash);
-
         /**
          * Server config
          * - static files
@@ -93,23 +69,22 @@ class FlashApp {
          * - formData Parse
          */
 
-        this.Flash.use("/static", Static(path.join(__dirname, "../storage/static")))
-        this.Flash.use(Cors(config.appConfig.cors));
-        this.Flash.use(Helmet());
-        this.Flash.use(JsonParser());
-        this.Flash.use(UrlEncoded());
-        this.Flash.use(CookieParser());
-        this.Flash.use(csurf({ cookie: true }));
+        this.Flash.use(Guard.check);
+        this.Flash.use("/static", express.static(path.join(__dirname, "../storage/static")));
+        this.Flash.use(cors(config.appConfig.cors));
+        this.Flash.use(helmet());
+        this.Flash.use(express.json());
+        this.Flash.use(express.urlencoded({ extended: true }));
+        this.Flash.use(cokieParser());
+        // this.Flash.use(csrf({ cookie: true }));
         this.Flash.use(routerDriver.routers);
         this.Flash.use(errorHandler);
         this.Flash.use("/*", notFound);
-        this.Flash.use(Service);
-        this.Flash.use(Guard)
+
         // all api list
         if (ENV.get("EXPRESSPLUS") == "true") {
             AppLog.allLogEndPoints(this.Flash);
         }
-
 
         return this.listen();
     }

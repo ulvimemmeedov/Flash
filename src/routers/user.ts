@@ -4,12 +4,13 @@ import { routeType } from "/root/nodejs/src/core/types"
 const routes: routeType[] = [
     {
         method: "get",
-        url: "/",
-        action: function (ctx) {
-            ctx.response.json({
-                message: "Hello World"
-            })
-        }
+        url: "/user",
+        controller: "User.index"
     },
+    {
+        method: "post",
+        url: "/user",
+        controller: "User.create"
+    }
 ]
 export default routes;
