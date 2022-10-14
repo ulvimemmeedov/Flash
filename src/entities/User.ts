@@ -7,8 +7,9 @@ export default class User extends BaseEntity {
     id: number
 
     @Column()
-    email: string
+    example1: string
 
     @Column()
-    password: string
-}
+    example2: number
+} 
+    
