@@ -21,7 +21,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cokieParser from 'cookie-parser';
 import Guard from './Guard';
-import preactRender from 'express-preact-views';
+import compression from 'compression';
+import { setupReactViews } from "express-tsx-views";
+
 /**
  * Main App Class.
  */
@@ -68,11 +70,17 @@ class FlashApp {
          * - json parse
          * - formData Parse
          */
-        this.Flash.set("views", path.join(__dirname, "../views"));
-        this.Flash.set('view engine', 'jsx');
-        this.Flash.engine('jsx', preactRender.createEngine({
-            beautify: true
-        }));
+        const options = {
+            viewsDirectory: path.resolve(__dirname, "../views"),
+            prettify: true, // Prettify HTML output
+        };
+        /**
+         * setup tsx view
+        */
+        setupReactViews(this.Flash, options);
+
+        this.Flash.use(compression());
+        this.Flash.setMaxListeners(Infinity);
         this.Flash.use(Guard.check);
         this.Flash.use("/static", express.static(path.join(__dirname, "../storage/static"), { maxAge: "30d" }));
         this.Flash.use("/uploads", express.static(path.join(__dirname, "../storage/uploads")));

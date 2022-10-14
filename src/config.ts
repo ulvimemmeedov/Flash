@@ -24,10 +24,10 @@ export const config: configType = {
         database: {
             type: "mysql",
             port: 3306,
-            host: "localhost",
+            host: "192.168.1.138",
             username: "root",
-            password: "root",
-            database: "db",
+            password: "",
+            database: "expressddd",
             logging: false,
             synchronize: true,
             entities: []
@@ -38,4 +38,3 @@ export const config: configType = {
         port: ENV.get("PORT")
     }
 }
-
