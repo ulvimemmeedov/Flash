@@ -13,12 +13,12 @@ export default async (): Promise<DataSource | {
             const js_files = fs.readdirSync(path.resolve(__dirname, '../entities')).filter((f) => {
                 return f.endsWith('.js') || f.endsWith('.ts');
             });
-            const entities: any[] = [];
-
+            // const entities: any[] = [];
             for await (const f of js_files) {
                 const entity = await import(entitiesPath + "/" + f);
-                entities.push(entity.default);
+                config.appConfig.database.entities.push(entity.default);
             }
+
             let AppDataSource = new DataSource(config.appConfig.database);
 
             return AppDataSource;

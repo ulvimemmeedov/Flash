@@ -1,12 +1,24 @@
 import Auth from "./Auth"
 import { DataSourceOptions } from "typeorm";
 
+interface DataSourceOptionsType extends DataSourceOptions {
+    type: DataSourceOptions.type,
+    port: number,
+    host: string,
+    username: string,
+    password: string,
+    database: string,
+    logging: false,
+    synchronize: true,
+    entities: any[]
+}
+
 export type configType = {
     appConfig: {
         cors: {
             origin: string[]
         },
-        database: DataSourceOptions,
+        database: DataSourceOptionsType,
         hash: {
             salt: number,
         }

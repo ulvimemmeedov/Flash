@@ -24,12 +24,13 @@ export const config: configType = {
         database: {
             type: "mysql",
             port: 3306,
-            host: "192.168.1.138",
+            host: "localhost",
             username: "root",
-            password: "",
-            database: "expressddd",
+            password: "root",
+            database: "db",
             logging: false,
-            synchronize: true
+            synchronize: true,
+            entities: []
         },
         hash: {
             salt: 10,
